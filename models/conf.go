@@ -1,29 +1,31 @@
 package models
 
 import (
+	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
-	"gopkg.in/yaml.v2"
-	"path/filepath"
+	"flag"
+	"fmt"
 )
 
 type Fvip struct {
-	Name string `yaml:"name"`
-	Url  string `yaml:"url"`
-	Invalid bool `yaml:"invalid"`
+	Name    string `yaml:"name"`
+	Url     string `yaml:"url"`
+	Invalid bool   `yaml:"invalid"`
 }
 
 type Conf struct {
-	Port int  `yaml: "port"`
+	Port int    `yaml: "port"`
 	Fvip []Fvip `yaml: "fvip"`
 }
 
 func GetConf() (*Conf, error) {
-	dbPath, err := filepath.Abs("./conf/conf.yaml")
-	if err != nil {
-		log.Fatalf("yaml not find conf: %v", err)
-	}
-	file, err := ioutil.ReadFile(dbPath)
+	confPath := flag.String("c", "./conf/conf.yaml","confPath")
+	flag.Parse()
+
+	fmt.Println(*confPath)
+
+	file, err := ioutil.ReadFile(*confPath)
 	if err != nil {
 		log.Fatalf("yaml not read: %v", err)
 	}

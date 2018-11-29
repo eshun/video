@@ -1,14 +1,14 @@
 package request
 
 import (
+	"bytes"
+	"github.com/PuerkitoBio/goquery"
+	"io"
 	"net/http"
 	"time"
-	"bytes"
-	"io"
-	"github.com/PuerkitoBio/goquery"
 )
 
-func Get(url string) (*goquery.Document) {
+func Get(url string) *goquery.Document {
 	client := http.Client{Timeout: 5 * time.Second}
 	resp, error := client.Get(url)
 	defer resp.Body.Close()

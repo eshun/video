@@ -1,21 +1,21 @@
 package controllers
 
 import (
-	"net/http"
 	"fmt"
 	"github.com/eshun/video/models"
 	"github.com/eshun/video/utils/request"
+	"net/http"
 )
 
 func VideoHandler(w http.ResponseWriter, r *http.Request) {
-	queryValues := r.URL.Query();
+	queryValues := r.URL.Query()
 	url := queryValues.Get("url")
 	if len(url) == 0 || string(url) == "" {
-		fmt.Printf("param url not exist\n");
+		fmt.Printf("param url not exist\n")
 	}
 	route := queryValues.Get("route")
 	if len(route) == 0 || string(route) == "" {
-		fmt.Printf("param route not exist\n");
+		fmt.Printf("param route not exist\n")
 	}
 	conf, _ := models.GetConf()
 
